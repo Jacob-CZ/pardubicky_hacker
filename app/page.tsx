@@ -4,16 +4,28 @@ import Mask from "../components/Mask";
 import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
 import { motion, useInView, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+
 export default function Home() {
   const ref = useRef(null);
   const { x, y } = useMousePosition();
   const inView  = useInView(ref);
   const {scrollYProgress} = useScroll({target: ref,offset: ["start end", "end end"] });
+
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWidth(window.innerWidth);
+    }
+    window.onresize = () => {
+      setWidth(window.innerWidth);
+    }
+  }, []);
+
   const scrollProgress = useTransform(
     scrollYProgress,
     [0, 1],
-    [window.innerWidth, 0],
+    [width, 0],
   )
   const springyProgress = useSpring(scrollProgress, {stiffness: 400, damping: 90});
   return (
