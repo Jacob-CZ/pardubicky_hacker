@@ -1,6 +1,8 @@
 "use client"
 import { useInView } from "framer-motion"
+import { Input } from "postcss"
 import { useEffect, useRef, useState } from "react"
+import Console from "./myConsole"
 
 export default function ConsoleWritingAnimation() {
     const containerRef = useRef(null)
@@ -8,9 +10,10 @@ export default function ConsoleWritingAnimation() {
     const text = `Váženy spolu programatore, vítej na strankach nejlepši progrmatorske soutěže v čechách`
     const [textArray, setTextArray] = useState(text.split(''))
     const [array, setArray] = useState<string[]>([])
-
+    const inputRef = useRef<HTMLInputElement>(null) 
     useEffect(() => {
         if (inWiev) {
+            inputRef.current?.focus()
             const interval = setInterval(() => {
                 setArray((prev) => {
                     const nextChar = textArray[prev.length];
@@ -28,15 +31,16 @@ export default function ConsoleWritingAnimation() {
     }, [inWiev])
 
     return (
-            <div ref={containerRef} className="w-full h-24 flex justify-center items-center bg-black text-white">
-                <div className="text-2xl font-mono h-fit flex">
+            <div ref={containerRef} className=" p-2 w-full h-screen flex flex-col text-console">
+                <div className="text-2xl font-terminal h-fit flex">
                     {array.map((letter, index) => (
                         <span key={index} dangerouslySetInnerHTML={{ __html: letter }}></span>
                     ))}
-                    <div className="blinking-cursor">
-
+                    <div className="blinking-cursor h-6 w-2 bg-console ml-1">
                     </div>
                 </div>
+                <br/>
+                    <Console/>
             </div>
     )
 }

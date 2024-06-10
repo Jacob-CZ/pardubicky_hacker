@@ -33,17 +33,17 @@ export default function Home() {
   return (
     <main className="h-fit w-full overflow-x-hidden">
       <div className=" w-full h-screen relative">
-      <h1 className="text-[9vw] absolute w-full top-1/4 font-programing text-center text-white hacker-bg">Hackers &nbsp;&nbsp; Welcome</h1>
+      <h1 className="text-[9vw] absolute w-full top-1/4 font-programing text-center text-white main-title">Hackers &nbsp;&nbsp; Welcome</h1>
       <div className=" w-full h-full">
-      <Canvas camera={{ fov: 15}}>
+      <Canvas camera={{ fov: 12}}>
         <Mask/>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[0, 0, 4]}  intensity={20}/>
+        <ambientLight intensity={0.1} />
+        <pointLight position={[0, 0, 4]}  intensity={15}/>
       </Canvas>
       </div>
       </div>
       <ConsoleWritingAnimation/>
-      <motion.div ref={ref} style={{x:springyProgress}} className=" h-screen bg-slate-600">
+      <motion.div ref={ref} style={{x:springyProgress}} className=" h-screen ">
 
       </motion.div>
     </main>

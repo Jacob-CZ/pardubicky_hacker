@@ -11,7 +11,7 @@ export default function RightEditor({
 }: {
 	defaultValue?: string
 }) {
-	const { theme } = useTheme()
+	const { theme, setTheme } = useTheme()
 	const [code, setCode] = useState(defaultValue)
 	const { setOutput, setLanguage, language } = useOutputStore()
 	const languageMap: { [key: string]: string } = {
@@ -24,21 +24,85 @@ export default function RightEditor({
 		cs: "csharp",
 		go: "go",
 	};
+	const langDefaultValues: { [key: string]: string } = {
+		js : `function fn_name(){
+
+}
+		`,
+		py: `def fn_name():
+	
+		`, 
+		c: `#include <stdio.h>
+int main(){
+
+}
+		`,
+		cpp: `#include <iostream>
+using namespace std;
+int main(){
+		}`,
+		java: `public class Main {
+	public static void main(String[] args) {
+
+	}
+}
+		`,
+		cs: `using System;
+class Program
+{
+	static void Main()
+	{
+
+	}
+}
+		`,
+		go: `package main
+import "fmt"
+func main() {
+
+}
+		`,
+		ts: `
+function fn_name(){
+	
+}
+		`
+	}
 	async function runCode() {
 		setOutput("hacker@delta-skola:~$ run program." + language)	
-		// const res = await fetch("/api/run/" + language, {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify({
-		// 		code: code,
-		// 	}),
-		// })
-		// const data = await res.json()
-		// setOutput(data.output)
-		
-		
+		const res = await fetch("/api/run/" + language, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				code: code,
+				codeId : "123"
+			}),
+		})
+		const data = await res.json()
+		setOutput(data.output)
+	}
+	async function submitCode() {
+		const res = await fetch("/api/submit/" + language, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				code: code,
+				codeId : "123"
+			}),
+		})
+		const data = await res.json()
+		console.log(data)
+	}
+	function chnageTheme() {
+		if (theme === "dark") {
+			setTheme("light")
+		} else {
+			setTheme("dark")
+		}
 	}
 	return (
 		<div className="flex flex-col h-full items-start justify-center relative ">
@@ -58,11 +122,13 @@ export default function RightEditor({
 						<SelectItem value="go">go</SelectItem>
 				</SelectContent>
 			</Select>
-			<Button onClick={runCode}>Run</Button>
+			<Button onClick={chnageTheme}>Zmenit barvu</Button>
+			<Button onClick={runCode}>Spustit</Button>
+			<Button onClick={submitCode}>Odevzdat</Button>
 			</div>
 			<Editor
 				language={languageMap[language]}
-				defaultValue={defaultValue}
+				value={langDefaultValues[language]}
 				theme={theme === "dark" ? "vs-dark" : "vs-light"}
 				onChange={(value) => setCode(value)}
 			/>

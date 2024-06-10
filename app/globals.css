@@ -27,6 +27,7 @@
       --input: 0 0% 89.8%;
       --ring: 0 0% 3.9%;
       --radius: 1rem;
+      --console: 103, 94%, 50%
     }
   
     .dark {
@@ -60,5 +61,35 @@
     }
     body {
       @apply bg-background text-foreground;
+    }
+  }
+
+  @font-face { 
+    font-family: "terminal"; 
+    src: url("../public/clacon2.ttf"); 
+} 
+  .terminal {
+    font-family: "terminal";
+  }
+
+  .main-title{
+    background-image: url(https://media4.giphy.com/media/V4NSR1NG2p0KeJJyr5/giphy.gif?cid=6c09b9529mcife2g37kj4cvdvqdrc1lv3bwy21hdcyjq42he&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g);
+    background-repeat: repeat;
+    color: transparent;
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .blinking-cursor {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
     }
   }
