@@ -5,6 +5,8 @@ import { Canvas } from "@react-three/fiber";
 import Image from "next/image";
 import { motion, useInView, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import { Console } from "console";
+import ConsoleWritingAnimation from "@/components/ConsoleWritingAnimation";
 
 export default function Home() {
   const ref = useRef(null);
@@ -40,6 +42,7 @@ export default function Home() {
       </Canvas>
       </div>
       </div>
+      <ConsoleWritingAnimation/>
       <motion.div ref={ref} style={{x:springyProgress}} className=" h-screen bg-slate-600">
 
       </motion.div>
