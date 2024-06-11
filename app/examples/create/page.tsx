@@ -17,7 +17,7 @@ export default function Page() {
 				<Textarea className=" w-1/2 min-w-96 mx-auto h-96 min-h-fit"></Textarea>
 				<div className=" mx-auto flex flex-col items-center w-1/2 gap-4 p-4" >
 					<div className="w-fit h-fit self-end " onClick={addTestCase}>
-						<CiSquarePlus className="w-12 h-12 hover:bg-white rounded hover:fill-black transition-all duration-1000"/>
+						<CiSquarePlus className="w-12 h-12 fill-primary hover:bg-primary rounded hover:fill-primary-foreground transition-all duration-1000"/>
 					</div>
 					{testCases.map((_, index) => {
 						return (
