@@ -23,6 +23,7 @@ export default function RightEditor({
 		java: "java",
 		cs: "csharp",
 		go: "go",
+		rust: "rust",
 	};
 	const langDefaultValues: { [key: string]: string } = {
 		js : `function fn_name(){
@@ -66,7 +67,9 @@ func main() {
 function fn_name(){
 	
 }
-		`
+		`,
+		rust: `fn main() {
+`
 	}
 	async function runCode() {
 		setOutput("hacker@delta-skola:~$ run program." + language)	
@@ -81,7 +84,7 @@ function fn_name(){
 			}),
 		})
 		const data = await res.json()
-		setOutput(data.output)
+		setOutput(data)
 	}
 	async function submitCode() {
 		const res = await fetch("/api/submit/" + language, {
@@ -120,6 +123,7 @@ function fn_name(){
 						<SelectItem value="java">java</SelectItem>
 						<SelectItem value="cs">C#</SelectItem>
 						<SelectItem value="go">go</SelectItem>
+						<SelectItem value="rust">rust</SelectItem>
 				</SelectContent>
 			</Select>
 			<Button onClick={chnageTheme}>Zmenit barvu</Button>

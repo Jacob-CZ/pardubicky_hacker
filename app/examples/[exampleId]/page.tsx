@@ -7,6 +7,7 @@ import LeftPanel from "@/components/leftPanel"
 import RightEditor from "@/components/editor"
 import TerminalComponent from "@/components/terminal"
 export default async function Page({ params }: { params: { exampleId: string } }) {
+
     const data = await fetch(process.env.URL + "/mdtest.md",{cache:"no-cache"}).then((res) => res.text())
 	return (
 		<div className="h-screen w-screen">
@@ -20,7 +21,7 @@ export default async function Page({ params }: { params: { exampleId: string } }
 				<ResizableHandle />
 				<ResizablePanel defaultSize={50} minSize={25}>
 					<ResizablePanelGroup direction="vertical">
-						<ResizablePanel defaultSize={75}>
+						<ResizablePanel defaultSize={75} minSize={50}>
 								<RightEditor  defaultValue={`const test = "test"`}	/>
 						</ResizablePanel>
 						<ResizableHandle />
