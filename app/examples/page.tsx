@@ -14,7 +14,7 @@ export default async function Page(){
     return (
         <div>
             {data.map((example) => (
-                <Link href={example.id} key={example.id} className=" mx-auto flex h-10 bg-primary-foreground m-4 rounded items-center justify-center max-w-32">
+                <Link href={"examples/" + example.id} key={example.id} className=" mx-auto flex h-10 bg-primary-foreground m-4 rounded items-center justify-center max-w-32">
                     <h1>{example.name}</h1>
                 </Link>
             ))}
