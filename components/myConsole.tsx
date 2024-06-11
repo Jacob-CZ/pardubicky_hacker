@@ -13,7 +13,7 @@ export default function Console({focus = false}) {
 
     const commands: Commands = {
         clear: () => { setCommand(""); setHistory([]) },
-        examples: () => { router.push("/examples/sadf") },
+        examples: () => { router.push("/examples") },
         about: () => { setHistory([...history, aboutText]) },
         help: () => { setHistory([...history, "clear - clear the console", "examples - show examples", "about - about the competition", "help - show this help"]) }
     }
