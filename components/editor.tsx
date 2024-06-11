@@ -7,12 +7,12 @@ import { useState } from "react"
 import useOutputStore from "@/lib/useOutputStore"
 
 export default function RightEditor({
-	defaultValue,
+	funcName,
 }: {
-	defaultValue?: string
+	funcName?: string
 }) {
 	const { theme, setTheme } = useTheme()
-	const [code, setCode] = useState(defaultValue)
+	const [code, setCode] = useState(funcName || "")
 	const { setOutput, setLanguage, language } = useOutputStore()
 	const languageMap: { [key: string]: string } = {
 		js: "javascript",
@@ -26,24 +26,24 @@ export default function RightEditor({
 		rust: "rust",
 	};
 	const langDefaultValues: { [key: string]: string } = {
-		js : `function fn_name(){
+		js : `function ${funcName}(){
 
 }
 		`,
-		py: `def fn_name():
+		py: `def ${funcName}():
 	
 		`, 
 		c: `#include <stdio.h>
-int main(){
+int ${funcName}(){
 
 }
 		`,
 		cpp: `#include <iostream>
 using namespace std;
-int main(){
+int ${funcName}(){
 		}`,
 		java: `public class Main {
-	public static void main(String[] args) {
+	public static void ${funcName}(String[] args) {
 
 	}
 }
@@ -51,7 +51,7 @@ int main(){
 		cs: `using System;
 class Program
 {
-	static void Main()
+	static void ${funcName}()
 	{
 
 	}
@@ -59,16 +59,16 @@ class Program
 		`,
 		go: `package main
 import "fmt"
-func main() {
+func ${funcName}() {
 
 }
 		`,
 		ts: `
-function fn_name(){
+function ${funcName}(){
 	
 }
 		`,
-		rust: `fn main() {
+		rust: `fn ${funcName}() {
 `
 	}
 	async function runCode() {
@@ -134,7 +134,7 @@ function fn_name(){
 				language={languageMap[language]}
 				value={langDefaultValues[language]}
 				theme={theme === "dark" ? "vs-dark" : "vs-light"}
-				onChange={(value) => setCode(value)}
+				onChange={(value) => setCode(value||"")}
 			/>
 		</div>
 	)

@@ -11,20 +11,22 @@ export default function ConsoleWritingAnimation() {
     const [textArray, setTextArray] = useState(text.split(''))
     const [array, setArray] = useState<string[]>([])
     const inputRef = useRef<HTMLInputElement>(null) 
+    const [focus, setFocus] = useState<boolean>(false)
     useEffect(() => {
         if (inWiev) {
-            inputRef.current?.focus()
             const interval = setInterval(() => {
                 setArray((prev) => {
                     const nextChar = textArray[prev.length];
+                    if (prev.length >= textArray.length) {
+                        setFocus(true)
+                        clearInterval(interval)
+                    }
                     if (nextChar === ' ') {
-                        return [...prev, '&nbsp;', textArray[prev.length + 1]];
+                        return [...prev, '&nbsp;'];
                     }
                     return [...prev, nextChar];
                 })
-                if (array.length >= textArray.length) {
-                    clearInterval(interval)
-                }
+
             }, 100)
             return () => clearInterval(interval)
         }
@@ -36,11 +38,11 @@ export default function ConsoleWritingAnimation() {
                     {array.map((letter, index) => (
                         <span key={index} dangerouslySetInnerHTML={{ __html: letter }}></span>
                     ))}
-                    <div className="blinking-cursor h-6 w-2 bg-console ml-1">
+                    <div style={ focus ? {animation: "none", backgroundColor: "transparent"}: {}} className="blinking-cursor h-6 w-2 bg-console ml-1">
                     </div>
                 </div>
                 <br/>
-                    <Console/>
+                    <Console focus={focus}/>
             </div>
     )
 }

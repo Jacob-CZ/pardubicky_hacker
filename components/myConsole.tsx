@@ -1,7 +1,6 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
-
-export default function Console() {
+export default function Console({focus = false}) {
     const inputRef = useRef<HTMLInputElement>(null)
     const [history, setHistory] = useState<string[]>([])
     const [command, setCommand] = useState<string>("")
@@ -11,7 +10,7 @@ export default function Console() {
     interface Commands {
         [command: string]: () => void;
     }
-    
+
     const commands: Commands = {
         clear: () => { setCommand(""); setHistory([]) },
         examples: () => { router.push("/examples/sadf") },
@@ -19,8 +18,10 @@ export default function Console() {
         help: () => { setHistory([...history, "clear - clear the console", "examples - show examples", "about - about the competition", "help - show this help"]) }
     }
     useEffect(() => {
-        inputRef.current?.focus()
-    }, [])
+        if (focus) {
+            inputRef.current!.focus()
+        }
+    }, [focus])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCommand(e.target.value)
     }
@@ -71,6 +72,5 @@ export default function Console() {
         </div>
     )
 }
-
 
 var aboutText =  "Toto je nejvetsi programatorska soutez v cr organizovana skolou delta a jejmi sudenty, primarne Jakubem"

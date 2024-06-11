@@ -6,9 +6,18 @@ import {
 import LeftPanel from "@/components/leftPanel"
 import RightEditor from "@/components/editor"
 import TerminalComponent from "@/components/terminal"
+import { createClient } from "@/lib/supabase/server"
 export default async function Page({ params }: { params: { exampleId: string } }) {
-
-    const data = await fetch(process.env.URL + "/mdtest.md",{cache:"no-cache"}).then((res) => res.text())
+	const supabase = createClient()
+	const exampleId = params.exampleId
+	const {data : exampleData , error} = await supabase.from("examples_public").select("*").eq("id", exampleId).single()
+	if(error) {
+		console.error(error)
+		return <div>Failed to fetch example</div>
+	}
+	if(!exampleData) {
+		return <div>Example not found</div>
+	}
 	return (
 		<div className="h-screen w-screen">
 			<ResizablePanelGroup
@@ -16,13 +25,13 @@ export default async function Page({ params }: { params: { exampleId: string } }
 				className="border h-screen w-screen"
 			>
 				<ResizablePanel defaultSize={50} minSize={25}>
-					<LeftPanel data={data} />
+					<LeftPanel data={exampleData} />
 				</ResizablePanel>
 				<ResizableHandle />
 				<ResizablePanel defaultSize={50} minSize={25}>
 					<ResizablePanelGroup direction="vertical">
 						<ResizablePanel defaultSize={75} minSize={50}>
-								<RightEditor  defaultValue={`const test = "test"`}	/>
+								<RightEditor  funcName={exampleData.func_name!}	/>
 						</ResizablePanel>
 						<ResizableHandle />
 						<ResizablePanel defaultSize={25} minSize={15}>
