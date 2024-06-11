@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from './lib/supabase/middleware'
 import { a } from '@react-spring/three'
-const user_regex = new RegExp(/\/((user.*)|(online.*)|(examples.*))/)
+const user_regex = new RegExp(/\/((user.*)|(online.*))/) // add (examples\/.*) in prod
 const admin_redex = new RegExp(/\/admin.*/)
 const creator_redex = new RegExp(/\/((creator.*))/) //add (examples\/create.*) in prod
 const user_access = ["user", "random"]
