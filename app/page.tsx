@@ -7,6 +7,7 @@ import { motion, useInView, useScroll, useSpring, useTransform } from "framer-mo
 import { useRef, useEffect, useState } from "react";
 import { Console } from "console";
 import ConsoleWritingAnimation from "@/components/ConsoleWritingAnimation";
+import Login from "@/components/Login";
 
 export default function Home() {
   const ref = useRef(null);
@@ -46,6 +47,7 @@ export default function Home() {
       <motion.div ref={ref} style={{x:springyProgress}} className=" h-screen ">
 
       </motion.div>
+      <Login/>
     </main>
   );
 }
