@@ -45,6 +45,7 @@ export default function Page() {
 		}
 		const {data:data2, error:error2} = await supabase.from("examples_private").insert({exampleId: data.id, test_cases: testCases}).select("*").single()
 		if(error2) {
+			supabase.from("examples_public").delete().match({id: data.id})
 			console.error(error2)
 			toast.error("Failed to create example")
 			return
