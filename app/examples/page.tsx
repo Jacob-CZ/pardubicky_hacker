@@ -1,3 +1,4 @@
+
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 
@@ -12,12 +13,14 @@ export default async function Page(){
         return <div>Examples not found</div>
     }
     return (
-        <div>
+        <div className="w-full min-h-screen">
+        <div className=" grid grid-cols-4 gap-4 p-4">
             {data.map((example) => (
-                <Link href={"examples/" + example.id} key={example.id} className=" mx-auto flex h-10 bg-primary-foreground m-4 rounded items-center justify-center max-w-32">
+                <Link href={"examples/" + example.id} key={example.id} className="flex h-full bg-primary-foreground p-4 rounded items-center justify-center max-h-24 ">
                     <h1>{example.name}</h1>
                 </Link>
             ))}
+        </div>
         </div>
     )
 }

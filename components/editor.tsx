@@ -3,16 +3,26 @@ import { Editor } from "@monaco-editor/react"
 import { useTheme } from "next-themes"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select"
 import { Button } from "./ui/button"
-import { useState } from "react"
+import { use, useEffect, useState } from "react"
 import useOutputStore from "@/lib/useOutputStore"
+import useCodeStore from "./useCodeStore"
 
 export default function RightEditor({
-	funcName,
+	data,
 }: {
-	funcName?: string
+	data: {
+		created_at: string;
+		func_name: string | null;
+		id: string;
+		instructions: string | null;
+		name: string | null;
+	}
 }) {
+	useEffect(() => {
+		setCode(langDefaultValues[language])
+	},[])
 	const { theme, setTheme } = useTheme()
-	const [code, setCode] = useState(funcName || "")
+	const {code, setCode} = useCodeStore()
 	const { setOutput, setLanguage, language } = useOutputStore()
 	const languageMap: { [key: string]: string } = {
 		js: "javascript",
@@ -26,24 +36,24 @@ export default function RightEditor({
 		rust: "rust",
 	};
 	const langDefaultValues: { [key: string]: string } = {
-		js : `function ${funcName}(){
+		js : `function ${data.func_name}(){
 
 }
 		`,
-		py: `def ${funcName}():
+		py: `def ${data.func_name}():
 	
 		`, 
 		c: `#include <stdio.h>
-int ${funcName}(){
+int ${data.func_name}(){
 
 }
 		`,
 		cpp: `#include <iostream>
 using namespace std;
-int ${funcName}(){
+int ${data.func_name}(){
 		}`,
 		java: `public class Main {
-	public static void ${funcName}(String[] args) {
+	public static void ${data.func_name}(String[] args) {
 
 	}
 }
@@ -51,7 +61,7 @@ int ${funcName}(){
 		cs: `using System;
 class Program
 {
-	static void ${funcName}()
+	static void ${data.func_name}()
 	{
 
 	}
@@ -59,16 +69,16 @@ class Program
 		`,
 		go: `package main
 import "fmt"
-func ${funcName}() {
+func ${data.func_name}() {
 
 }
 		`,
 		ts: `
-function ${funcName}(){
+function ${data.func_name}(){
 	
 }
 		`,
-		rust: `fn ${funcName}() {
+		rust: `fn ${data.func_name}() {
 `
 	}
 	async function runCode() {
@@ -80,11 +90,11 @@ function ${funcName}(){
 			},
 			body: JSON.stringify({
 				code: code,
-				codeId : "123"
+				exampleId : data.id
 			}),
 		})
-		const data = await res.json()
-		setOutput(data)
+		// const outputData = await res.json()
+		// setOutput(outputData)
 	}
 	async function submitCode() {
 		const res = await fetch("/api/submit/" + language, {
@@ -109,7 +119,7 @@ function ${funcName}(){
 	}
 	return (
 		<div className="flex flex-col h-full items-start justify-center relative ">
-			<div className=" flex w-full   h-fit  p-1 justify-between ">
+			<div className=" flex w-full   h-fit  p-1 justify-between pr-24">
 			<Select onValueChange={(e) => setLanguage(e)}>
 				<SelectTrigger className=" w-fit">
 					<SelectValue placeholder="vyber jazyk" />

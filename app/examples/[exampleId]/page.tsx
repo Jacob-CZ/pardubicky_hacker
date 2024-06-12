@@ -31,7 +31,7 @@ export default async function Page({ params }: { params: { exampleId: string } }
 				<ResizablePanel defaultSize={50} minSize={25}>
 					<ResizablePanelGroup direction="vertical">
 						<ResizablePanel defaultSize={75} minSize={50}>
-								<RightEditor  funcName={exampleData.func_name!}	/>
+								<RightEditor data={exampleData}/>
 						</ResizablePanel>
 						<ResizableHandle />
 						<ResizablePanel defaultSize={25} minSize={15}>

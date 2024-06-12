@@ -25,6 +25,8 @@ import ReactMarkdown from "react-markdown"
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ChatAssistant from "./chatAssistant"
+import { use, useEffect } from "react"
+import useCodeStore from "./useCodeStore"
 
 export default function LeftPanel({
 	data,
@@ -37,6 +39,12 @@ export default function LeftPanel({
 		name: string | null
 	} | null
 }) {
+	const { setInstructions } = useCodeStore()
+	useEffect(() => {
+		if (data?.instructions) {
+			setInstructions(data.instructions)
+		}
+	}, [data])
 	return (
 		<div className="flex flex-col h-full w-full items-center justify-center">
 			<Tabs defaultValue="instructions" className="w-full h-full">
