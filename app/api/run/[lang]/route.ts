@@ -1,16 +1,15 @@
 import { testCase } from "@/app/examples/create/page";
 import precompileCode from "@/app/valitade";
-import { cast } from "@/lib/codeRuning/parsing";
 import { createClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
-import test from "node:test";
 import { v4 as uuidv4 } from "uuid";
- 
 export async function POST(req: NextRequest, { params }: { params: { lang: string } }) {
+  function compareResults(results: any[], testCases: testCase[]) {
+    return testCases.map((testCase, index) => JSON.stringify(results[index]) === testCase.output);
+}
   const body = await req.json();
   const supabase = createClient();
   const { code, exampleId } = body;
-  console.log(code, exampleId)
   if (!code || !exampleId) {
     return NextResponse.json("Code or exampleId is missing", { status: 400 });
   }
@@ -24,23 +23,34 @@ export async function POST(req: NextRequest, { params }: { params: { lang: strin
     return NextResponse.json("Example not found", { status: 404 });
   }
   const testCases = exampleData.test_cases
-  console.log(testCases)
   const testCaseArray = JSON.parse(String(testCases)) as testCase[]
-  console.log(testCaseArray)
   const inputs = testCaseArray.map((testCase: any) => testCase.input)
-  const inputString = "[" + inputs.join(",") + "]"
+  const inputString = "[[" + inputs.join("][") + "]]"
   const funcName = publicEampleData.func_name
   const secret = uuidv4();
-  const compiledCode = precompileCode(params.lang, funcName!, inputString ,secret)
-  console.log(compiledCode)
-  // const res = await fetch(`${process.env.CODE_RUNNER_URL}/${params.lang}`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({ compiledCode }),
-  // });
-  // const data = await res.text();
-  // console.log(data)
-  return NextResponse.json(compiledCode);
+  const compiledCode = precompileCode(code,params.lang, funcName!, inputString ,secret)
+  const res = await fetch(`${process.env.CODE_RUNNER_URL}/${params.lang}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ code: compiledCode }),
+  });
+  const data = await res.text();
+  console.log(data)
+  const dataToUser  = data.split(secret)[0]
+  let results = data.split(secret)[1]
+  if (!results) {
+    return NextResponse.json("Failed to run code", { status: 500 });
+  }
+  results = results.replace(/(undefined)/gm, "");
+  const result: boolean[] = compareResults(JSON.parse(results), testCaseArray)
+  for (let index = 0; index < result.length; index++) {
+    if (!result[index]){
+      console.log(result[index])
+      return NextResponse.json(String(`Test cases failed expected:${testCaseArray[index].output} got:${(JSON.parse(results) as Array<any>)[index]}`), { status: 400 })
+    }
+  }
+  return NextResponse.json(dataToUser +  "all testcasese passed", { status: 200 });
 }
+

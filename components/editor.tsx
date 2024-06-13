@@ -93,8 +93,8 @@ function ${data.func_name}(){
 				exampleId : data.id
 			}),
 		})
-		// const outputData = await res.json()
-		// setOutput(outputData)
+		const outputData = await res.json()
+		setOutput(outputData)
 	}
 	async function submitCode() {
 		const res = await fetch("/api/submit/" + language, {

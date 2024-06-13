@@ -3,18 +3,19 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import useCodeStore from "./useCodeStore";
 import useOutputStore from "@/lib/useOutputStore";
+import useMessagetStore from "@/lib/messageStore";
 export interface Message {
     content: string
     role: "user" | "assistant"| "system"
 }
 export default function ChatAssistant() {
-    const [messages, setMessages] = useState<Array<Message>>([])
+    const {messages, setMessage} = useMessagetStore()
     const [input, setInput] = useState<string>("")
     const {code, instructions} = useCodeStore()
     const {language} = useOutputStore()
     async function handleSend() {
         if (!input) return
-        setMessages((prev) => ([{content: input, role: "user"}, ...prev]))
+        setMessage({content: input, role: "user"})
         setInput("")
         const {response} = await fetch("/api/assistant", {
             method: "POST",
@@ -23,7 +24,7 @@ export default function ChatAssistant() {
                 "Content-Type": "application/json"
             }
         }).then(res => res.json())
-        setMessages((prev) => ([{content: response, role: "assistant"}, ...prev]))
+        setMessage({content: response, role: "assistant"})
     }
     function Message({message, role}:{message:string, role: "user" | "assistant" | "system"}): JSX.Element {
         return (

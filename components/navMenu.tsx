@@ -2,6 +2,7 @@
 import { IoMenu } from "react-icons/io5";
 import { motion, useAnimate } from "framer-motion";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 const containerVariants = {
     hidden: { y: -500, opacity: 0},
     visible: {
@@ -17,6 +18,18 @@ const containerVariants = {
     hidden: { y: -500 },
     visible: { y: 0 }
   };
+const sites = [ 
+  { name: "Home", url: "/" },
+  { name: "Examples", url: "/examples" },
+  { name: "Projects", url: "/projects" },
+  { name: "Contact", url: "/contact" },
+  { name: "Blog", url: "/blog" },
+  { name: "Resume", url: "/resume" },
+  { name: "Services", url: "/services" },
+  { name: "Portfolio", url: "/portfolio" },
+  { name: "Testimonials", url: "/testimonials" },
+  { name: "FAQ", url: "/faq" },
+]
 export default function NavMenu() {
     const [scope, animate] = useAnimate()
     const [startAnimation, setStartAnimation] = useState(false);
@@ -28,14 +41,18 @@ export default function NavMenu() {
                 variants={containerVariants}
                 initial="hidden"
                 animate={startAnimation ? "visible" : "hidden"}
+                onClick={() => setStartAnimation(false)}
             >
-                {Array.from({ length: 10 }).map((_, index) => (
+                {sites.map((obj, index) => (
                     <motion.div
                         key={index}
                         className="w-[10%] h-full bg-primary-foreground flex items-center justify-center font-terminal text-console text-3xl rounded-3xl"
                         variants={itemVariants}
+                        
                     >
-                        home
+                      <Link href={obj.url}>
+                        {obj.name}
+                      </Link>
                     </motion.div>
                 ))}
             </motion.div>

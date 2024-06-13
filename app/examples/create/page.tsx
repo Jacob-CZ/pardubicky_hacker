@@ -131,7 +131,7 @@ export default function Page() {
 										</SelectContent>
 									</Select>
 									<p>Array</p>
-									<Checkbox  onChange={(e) => setIsArray(Boolean(e.currentTarget.value))} />
+									<Checkbox  onChange={(e:any) => setIsArray(Boolean(e.currentTarget.value))} />
 									</div>
 								</div>
 								<DialogFooter>

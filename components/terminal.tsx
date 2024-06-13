@@ -16,7 +16,9 @@ export default function TerminalComponent() {
     return (
         <div className="flex h-full flex-col overflow-y-auto">
             {output.map((line, index) => {
-                return <div key={index} className="text-white">{JSON.stringify(line)}</div>
+                return <div key={index} className="text-white">{line.split('\n').map((item, key) => {
+                  return <span key={key}>{item}<br/></span>
+                })}</div>
             })}
             <div ref={bottomRef} />
         </div>
