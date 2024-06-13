@@ -56,7 +56,7 @@ export default function NavMenu() {
                     </motion.div>
                 ))}
             </motion.div>
-            <div onClick={() => setStartAnimation(false)} className={" fixed z-40 top-0 left-0 w-screen h-screen " + (startAnimation ? "visible" : "hidden")} >
+            <div onClick={() => setStartAnimation(false)} className={"  backdrop-blur-lg fixed z-40 top-0 left-0 w-screen h-screen " + (startAnimation ? "visible" : "hidden")} >
 
             </div>
         </>
