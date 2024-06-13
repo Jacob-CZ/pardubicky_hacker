@@ -1,4 +1,4 @@
-import Gradient from "@/components/gradient"
+// import Gradient from "@/components/gradient"
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import React from 'react'
@@ -21,7 +21,7 @@ export default async function Page() {
                     </Link>
                 ))}
             </div>
-            <Gradient />
+            {/* <Gradient /> */}
         </div>  
     )
 }
