@@ -63,8 +63,9 @@ export default function LeftPanel({
 						<CardHeader>
 							<CardTitle>Zadani</CardTitle>
 						</CardHeader>
-						<CardContent className="w-full h-full text-left">
+						<CardContent className="w-full h-full text-left overflow-y-auto">
 							<ReactMarkdown
+							className="overflow-y-auto"
 								remarkPlugins={[remarkGfm]}
 								components={{
 									code({
@@ -79,6 +80,7 @@ export default function LeftPanel({
 										const { ref, ...rest } = props;
 										return  match ? (
 											<SyntaxHighlighter
+											
 												style={darcula as any}
 												language={match[1]}
 												PreTag="div"

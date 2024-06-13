@@ -31,13 +31,12 @@ const sites = [
   { name: "FAQ", url: "/faq" },
 ]
 export default function NavMenu() {
-    const [scope, animate] = useAnimate()
     const [startAnimation, setStartAnimation] = useState(false);
     return (
         <>
             <IoMenu className=" fixed top-2 right-2 text-2xl  z-50 w-10 h-10 " onClick={() => setStartAnimation(!startAnimation)}/>
             <motion.div
-                className="fixed top-0 left-0 w-screen h-36 bg-transparent flex p-4 pr-8 gap-4"
+                className="fixed top-0 left-0 w-screen h-36 bg-transparent flex p-4 pr-8 gap-4 z-50"
                 variants={containerVariants}
                 initial="hidden"
                 animate={startAnimation ? "visible" : "hidden"}
@@ -45,6 +44,7 @@ export default function NavMenu() {
             >
                 {sites.map((obj, index) => (
                     <motion.div
+                    whileHover={{ scale: 1.1,y: 20 }}
                         key={index}
                         className="w-[10%] h-full bg-primary-foreground flex items-center justify-center font-terminal text-console text-3xl rounded-3xl"
                         variants={itemVariants}
@@ -56,6 +56,9 @@ export default function NavMenu() {
                     </motion.div>
                 ))}
             </motion.div>
+            <div onClick={() => setStartAnimation(false)} className={"  backdrop-blur-lg fixed z-40 top-0 left-0 w-screen h-screen " + (startAnimation ? "visible" : "hidden")} >
+
+            </div>
         </>
     )
 }

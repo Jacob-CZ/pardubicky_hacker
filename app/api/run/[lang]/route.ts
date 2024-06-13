@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 export async function POST(req: NextRequest, { params }: { params: { lang: string } }) {
   function compareResults(results: any[], testCases: testCase[]) {
     return testCases.map((testCase, index) => JSON.stringify(results[index]) === testCase.output);
-}
+  }
   const body = await req.json();
   const supabase = createClient();
   const { code, exampleId } = body;
@@ -28,29 +28,35 @@ export async function POST(req: NextRequest, { params }: { params: { lang: strin
   const inputString = "[[" + inputs.join("][") + "]]"
   const funcName = publicEampleData.func_name
   const secret = uuidv4();
-  const compiledCode = precompileCode(code,params.lang, funcName!, inputString ,secret)
-  const res = await fetch(`${process.env.CODE_RUNNER_URL}/${params.lang}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ code: compiledCode }),
-  });
-  const data = await res.text();
+  const compiledCode = precompileCode(code, params.lang, funcName!, inputString, secret)
+  let data: string;
+  try {
+    const res = await fetch(`${process.env.CODE_RUNNER_URL}/${params.lang}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code: params.lang === "js" ? compiledCode : code }),
+    });
+    data = await res.text();
+  } catch (e) {
+    console.error(e)
+    return NextResponse.json("Failed to run code", { status: 500 });
+  }
   console.log(data)
-  const dataToUser  = data.split(secret)[0]
+  const dataToUser = data.split(secret)[0]
   let results = data.split(secret)[1]
   if (!results) {
-    return NextResponse.json("Failed to run code", { status: 500 });
+    return NextResponse.json("Failed to test code:" + dataToUser, { status: 500 });
   }
   results = results.replace(/(undefined)/gm, "");
   const result: boolean[] = compareResults(JSON.parse(results), testCaseArray)
   for (let index = 0; index < result.length; index++) {
-    if (!result[index]){
+    if (!result[index]) {
       console.log(result[index])
       return NextResponse.json(String(`Test cases failed expected:${testCaseArray[index].output} got:${(JSON.parse(results) as Array<any>)[index]} \n output:${dataToUser}`), { status: 400 })
     }
   }
-  return NextResponse.json(dataToUser +  "all testcasese passed", { status: 200 });
+  return NextResponse.json(dataToUser + "all testcasese passed", { status: 200 });
 }
 

@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
-export default function Console({focus = false}) {
+export default function Console({ focus = false }) {
     const inputRef = useRef<HTMLInputElement>(null)
     const [history, setHistory] = useState<string[]>([])
     const [command, setCommand] = useState<string>("")
@@ -38,26 +38,31 @@ export default function Console({focus = false}) {
         }
         if (e.key === "ArrowUp") {
             e.preventDefault()
-            if (commandIndex < commandHistory.length ) {
+            if (commandIndex < commandHistory.length) {
                 setCommand(commandHistory[commandHistory.length - commandIndex - 1])
                 setCommandIndex(commandIndex + 1)
             }
-            else{
+            else {
                 setCommand(commandHistory[0])
             }
         }
-        if(e.key === "ArrowDown") {
+        if (e.key === "ArrowDown") {
             e.preventDefault()
             if (commandIndex > 0) {
                 setCommand(commandHistory[commandHistory.length - commandIndex])
                 setCommandIndex(commandIndex - 1)
-            }else{
+            } else {
                 setCommand("")
             }
         }
     }
     return (
         <div className="w-full h-screen">
+            <div className=" items-center flex w-full h-6 bg-background text-console font-terminal text-2xl mb-4">
+                <div className=" mr-3">
+                    type help for list of commands
+                </div>
+            </div>
             {history.map((command, index) => (
                 <div key={index} className="items-center flex h-6 text-console font-terminal text-2xl">
                     hacker@delta_skola:~$ {command}
@@ -73,4 +78,4 @@ export default function Console({focus = false}) {
     )
 }
 
-var aboutText =  "Toto je nejvetsi programatorska soutez v cr organizovana skolou delta a jejmi sudenty, primarne Jakubem"
+var aboutText = "Toto je nejvetsi programatorska soutez v cr organizovana skolou delta a jejmi sudenty, primarne Jakubem"
