@@ -48,7 +48,7 @@ export async function POST(req: NextRequest, { params }: { params: { lang: strin
   for (let index = 0; index < result.length; index++) {
     if (!result[index]){
       console.log(result[index])
-      return NextResponse.json(String(`Test cases failed expected:${testCaseArray[index].output} got:${(JSON.parse(results) as Array<any>)[index]}`), { status: 400 })
+      return NextResponse.json(String(`Test cases failed expected:${testCaseArray[index].output} got:${(JSON.parse(results) as Array<any>)[index]} \n output:${dataToUser}`), { status: 400 })
     }
   }
   return NextResponse.json(dataToUser +  "all testcasese passed", { status: 200 });
