@@ -6,6 +6,7 @@ import { Button } from "./ui/button"
 import { use, useEffect, useState } from "react"
 import useOutputStore from "@/lib/useOutputStore"
 import useCodeStore from "./useCodeStore"
+import { toast } from "sonner"
 
 export default function RightEditor({
 	data,
@@ -95,8 +96,13 @@ function ${data.func_name}(){
 				exampleId : data.id
 			}),
 		})
-		const outputData = await res.json()
-		setOutput(outputData)
+		try {
+			const outputData = await res.json()
+			setOutput(outputData)
+		} catch (e) {
+			setOutput("Failed to run code")
+			toast.error("Failed to run code")
+		}
 		setFetching(false)
 	}
 	async function submitCode() {
