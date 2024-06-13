@@ -9,7 +9,7 @@ interface MessageStore {
 
 const useMessagetStore = create<MessageStore>((set) => ({
     messages: [],
-    setMessage: (message) => set((state) => ({messages: [ message, ...state.messages]}))
+    setMessage: (message) => set((state) => ({messages: [ message,...state.messages]}))
 }))
 
 export default useMessagetStore
