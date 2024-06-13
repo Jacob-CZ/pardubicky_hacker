@@ -44,6 +44,9 @@ export async function POST(req: NextRequest, { params }: { params: { lang: strin
     return NextResponse.json("Failed to run code");
   }
   console.log(data)
+  if(!data.includes(secret)){
+    return NextResponse.json("Failed to test code:" + data);
+  }
   const dataToUser = data.split(secret)[0]
   let results = data.split(secret)[1]
   if (!results) {
