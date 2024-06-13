@@ -9,7 +9,7 @@ import useMousePosition from '@/lib/useMousePosition'
 import { useFrame } from '@react-three/fiber'
 import { useScroll, animated } from '@react-spring/three'
 export default function Mask(props) {
-  const { nodes, materials } = useGLTF('/mask.glb')
+  const { nodes, materials } = useGLTF('/maskCompressed.glb')
   const {x,y} = useMousePosition()
   const { scrollYProgress } = useScroll()
   useFrame(({ clock, camera }) => {
@@ -29,4 +29,4 @@ export default function Mask(props) {
   )
 }
 
-useGLTF.preload('/mask.glb')
+useGLTF.preload('/maskCompressed.glb')

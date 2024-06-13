@@ -105,7 +105,7 @@ export default function Login() {
         <div>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Avatar className=" fixed top-4 right-4" >
+                    <Avatar className=" fixed top-4 left-4" >
                         <Avatar>
                             <AvatarImage src="/dalmatian.webp" alt="@shadcn" />
                             <AvatarFallback>CN</AvatarFallback>

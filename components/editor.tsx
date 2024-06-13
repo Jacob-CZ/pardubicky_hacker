@@ -36,7 +36,7 @@ export default function RightEditor({
 		rust: "rust",
 	};
 	const langDefaultValues: { [key: string]: string } = {
-		js : `function ${data.func_name}(){
+		js : `function ${data.func_name}(nums, target){
 
 }
 		`,
