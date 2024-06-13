@@ -1,6 +1,6 @@
 
 import { Message } from '@/components/chatAssistant'
-import create from 'zustand'
+import {create} from 'zustand'
 
 interface MessageStore {
     messages: Message[]

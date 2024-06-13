@@ -24,6 +24,7 @@ export default function RightEditor({
 	const { theme, setTheme } = useTheme()
 	const {code, setCode} = useCodeStore()
 	const { setOutput, setLanguage, language } = useOutputStore()
+	const [fetching, setFetching] = useState(false)
 	const languageMap: { [key: string]: string } = {
 		js: "javascript",
 		ts: "typescript",
@@ -82,6 +83,7 @@ function ${data.func_name}(){
 `
 	}
 	async function runCode() {
+		setFetching(true)
 		setOutput("hacker@delta-skola:~$ run program." + language)	
 		const res = await fetch("/api/run/" + language, {
 			method: "POST",
@@ -95,6 +97,7 @@ function ${data.func_name}(){
 		})
 		const outputData = await res.json()
 		setOutput(outputData)
+		setFetching(false)
 	}
 	async function submitCode() {
 		const res = await fetch("/api/submit/" + language, {
@@ -137,14 +140,14 @@ function ${data.func_name}(){
 				</SelectContent>
 			</Select>
 			<Button onClick={chnageTheme}>Zmenit barvu</Button>
-			<Button onClick={runCode}>Spustit</Button>
+			<Button onClick={runCode} disabled={fetching}>Spustit</Button>
 			<Button onClick={submitCode}>Odevzdat</Button>
 			</div>
 			<Editor
 				language={languageMap[language]}
 				value={langDefaultValues[language]}
 				theme={theme === "dark" ? "vs-dark" : "vs-light"}
-				onChange={(value) => setCode(value||"")}
+				onChange={(value: string) => setCode(value||"")}
 			/>
 		</div>
 	)
