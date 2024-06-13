@@ -147,7 +147,7 @@ function ${data.func_name}(){
 				language={languageMap[language]}
 				value={langDefaultValues[language]}
 				theme={theme === "dark" ? "vs-dark" : "vs-light"}
-				onChange={(value: string) => setCode(value||"")}
+				onChange={(value: string | undefined) => setCode(value || "")}
 			/>
 		</div>
 	)
