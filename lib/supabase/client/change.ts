@@ -3,7 +3,7 @@ import { createClient } from "../client";
 
 const supabase = createClient();
 export async function chnageName(name: string) {
-    const {data, error} = await supabase.auth.updateUser({
+    const { data, error } = await supabase.auth.updateUser({
         data: {
             name
         }
@@ -14,7 +14,7 @@ export async function chnageName(name: string) {
     }
 }
 export async function changeEmail(email: string) {
-    const {data, error} = await supabase.auth.updateUser({
+    const { data, error } = await supabase.auth.updateUser({
         data: {
             email
         }
@@ -25,7 +25,7 @@ export async function changeEmail(email: string) {
     }
 }
 export async function changePassword(password: string) {
-    const {data, error} = await supabase.auth.updateUser({
+    const { data, error } = await supabase.auth.updateUser({
         data: {
             password
         }
@@ -36,7 +36,7 @@ export async function changePassword(password: string) {
     }
 }
 export async function changeNickname(nickname: string) {
-    const {data, error} = await supabase.auth.updateUser({
+    const { data, error } = await supabase.auth.updateUser({
         data: {
             nickname
         }
