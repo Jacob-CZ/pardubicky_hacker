@@ -16,7 +16,7 @@ export default async function Page() {
         <div className="w-full min-h-screen z-0 ">
             <div className=" grid grid-cols-4 gap-4 p-4 bg-transparent ">
                 {data.map((example) => (
-                    <Link href={"examples/" + example.id} key={example.id} className=" z-50 flex h-full rounded-xl bg-[#0005] border-4 backdrop-blur-lg  p-4 items-center justify-center max-h-24 ">
+                    <Link href={"examples/" + example.id} key={example.id} className=" font-terminal text-console z-50 flex h-full text-3xl rounded-xl bg-[#0005] border-2 backdrop-blur-lg  p-2 items-center justify-center max-h-24 ">
                         <h1>{example.name}</h1>
                     </Link>
                 ))}

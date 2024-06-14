@@ -1,6 +1,6 @@
 ## Introduction
 
-Open [production buld](https://pardubicky-hacker.vercel.app/) for demo.
+Open [production build](https://pardubicky-hacker.vercel.app/) for demo.
 
 
 
@@ -74,6 +74,6 @@ Open [production buld](https://pardubicky-hacker.vercel.app/) for demo.
 - simple ui
 - leader boards from web app
 - supbabse for auth 
-- nativewinf v4
+- nativewind v4
 - react native reusables and various ui component libs
 
