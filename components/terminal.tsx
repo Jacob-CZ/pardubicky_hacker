@@ -1,7 +1,6 @@
 "use client"
 import useOutputStore from '@/lib/useOutputStore';
 import { useEffect, useRef } from 'react';
-import Terminal, { ColorMode, TerminalOutput } from 'react-terminal-ui';
 
 export default function TerminalComponent() {
     const { output, language } = useOutputStore();
