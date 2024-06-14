@@ -16,7 +16,7 @@ export async function POST(req: NextRequest, { params }: { params: { lang: strin
   const { data: publicEampleData, error: publicError } = await supabase.from("examples_public").select("*").eq("id", exampleId).single();
   const { data: exampleData, error } = await supabase.from("examples_private").select("*").eq("exampleId", exampleId).single();
   if (error || publicError) {
-    console.error(error, publicError);
+    console.error("error " ,  error, " public error" ,  publicError);
     return NextResponse.json(error || publicError, { status: 500 });
   }
   if (!exampleData || !publicEampleData) {
@@ -47,19 +47,19 @@ export async function POST(req: NextRequest, { params }: { params: { lang: strin
   if(!data.includes(secret)){
     return NextResponse.json("Failed to test code:" + data);
   }
-  // const dataToUser = data.split(secret)[0]
-  // let results = data.split(secret)[1]
-  // if (!results) {
-  //   return NextResponse.json("Failed to test code:" + dataToUser);
-  // }
-  // results = results.replace(/(undefined)/gm, "");
-  // const result: boolean[] = compareResults(JSON.parse(results), testCaseArray)
-  // for (let index = 0; index < result.length; index++) {
-  //   if (!result[index]) {
-  //     console.log(result[index])
-  //     return NextResponse.json(String(`Test cases failed expected:${testCaseArray[index].output} got:${(JSON.parse(results) as Array<any>)[index]} \n output:${dataToUser}`))
-  //   }
-  // }
+  const dataToUser = data.split(secret)[0]
+  let results = data.split(secret)[1]
+  if (!results) {
+    return NextResponse.json("Failed to test code:" + dataToUser);
+  }
+  results = results.replace(/(undefined)/gm, "");
+  const result: boolean[] = compareResults(JSON.parse(results), testCaseArray)
+  for (let index = 0; index < result.length; index++) {
+    if (!result[index]) {
+      console.log(result[index])
+      return NextResponse.json(String(`Test cases failed expected:${testCaseArray[index].output} got:${(JSON.parse(results) as Array<any>)[index]} \n output:${dataToUser}`))
+    }
+  }
   return NextResponse.json(data + "all testcasese passed", { status: 200 });
 }
 

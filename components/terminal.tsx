@@ -10,16 +10,15 @@ export default function TerminalComponent() {
         if (bottomRef.current && output.length > 0) { 
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }
+    console.log(output)
     }, [output]);
 
     return (
         <div className="flex h-full flex-col overflow-y-auto">
             {output.map((line:string, index) => {
-                return <div key={index} className="text-white">{line.includes("\n")? line.split('\n').map((item, key) => {
+                return <div key={index} className="text-white">{ typeof line == "string" ? line.split('\n').map((item, key) => {
                   return <span key={key}>{item}<br/></span>
-                })
-            : line
-            }</div>
+                }): "error"}</div>
             })}
             <div ref={bottomRef} />
         </div>
