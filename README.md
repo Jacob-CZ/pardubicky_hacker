@@ -69,3 +69,11 @@ Open [production buld](https://pardubicky-hacker.vercel.app/) for demo.
 - /lessons **prerecorded scrimba like lessons in czech**
 - /news **programing,competition,delta related news**
 
+## react native app in very beta
+- small code snippets
+- simple ui
+- leader boards from web app
+- supbabse for auth 
+- nativewinf v4
+- react native reusables and various ui component libs
+
