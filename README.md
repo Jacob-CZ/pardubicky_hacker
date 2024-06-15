@@ -63,7 +63,7 @@ Open [production build](https://pardubicky-hacker.vercel.app/) for demo.
 - zustand **state management accross components**
 - middleware regex matching for role management currently turned off for demos withou a account 
 
-## new routes planed in future releases  (witing a week)
+## New routes planed in future releases  (within a week)
 - /seminar **live seminars**
 - /compete **similar to examples but with leader boards scored based on time and attempts**
 - /liveCompete **monthly competition starting at a given time like google code jam**
@@ -72,7 +72,7 @@ Open [production build](https://pardubicky-hacker.vercel.app/) for demo.
 - /lessons **prerecorded scrimba like lessons in czech**
 - /news **programing,competition,delta related news**
 
-## react native app in very beta
+## React native app in very beta
 - small code snippets
 - simple ui
 - leader boards from web app
