@@ -5,7 +5,10 @@
 
 Open [production build](https://pardubicky-hacker.vercel.app/) for demo.
 
+## Known bugs
 
+- markdown is broken because of tailwind
+- auth is not complete (because of demo purpouses)
 
 ## Features
 
