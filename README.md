@@ -1,4 +1,4 @@
-![Static Badge](https://img.shields.io/badge/Version-0%2e1-blue) ![Static Badge](https://img.shields.io/badge/Licence-MIT-green)
+![Static Badge](https://img.shields.io/badge/Version-0%2e1-blue) ![Static Badge](https://img.shields.io/badge/Licence-MIT-green) ![Static Badge](https://img.shields.io/badge/Pre--release-red) ![Static Badge](https://img.shields.io/badge/Maintained_by-Delta_SŠIE-gold)
 
 
 ## Introduction
