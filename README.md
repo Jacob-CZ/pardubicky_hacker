@@ -1,3 +1,6 @@
+![Static Badge](https://img.shields.io/badge/Version-0%2e1-blue) ![Static Badge](https://img.shields.io/badge/Licence-MIT-green)
+
+
 ## Introduction
 
 Open [production buld](https://pardubicky-hacker.vercel.app/) for demo.
