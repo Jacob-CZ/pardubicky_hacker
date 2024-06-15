@@ -41,7 +41,7 @@ export async function POST(req: NextRequest, { params }: { params: { lang: strin
     data = await res.text();
   } catch (e) {
     console.error(e)
-    return NextResponse.json("Failed to run code");
+    return NextResponse.json("Failed to run code", { status: 500 });
   }
   console.log(data)
   if(!data.includes(secret)){

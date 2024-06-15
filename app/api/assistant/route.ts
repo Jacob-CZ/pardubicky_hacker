@@ -6,9 +6,9 @@ const openai = new OpenAI()
 export async function POST(req: NextRequest) {
 	const supabase = createClient()
 	const body = await req.json()
-	const { messages, exampleId, code, instructions, language } = body
+	const { messages, exampleId, code, instructions, language, output } = body
 	let newMessages = messages as Message[]
-	newMessages.splice(newMessages.length - 1, 0, {role:"system", content: createMessage(code, language)});
+	newMessages.splice(newMessages.length - 1, 0, {role:"system", content: createMessage(code, language, output)});
 	// const { data, error } = await supabase
 	// 	.from("examples_user")
 	// 	.select("*")
@@ -34,8 +34,9 @@ function createSystemMessage(instructions:string) {
 	the instructions for the function the user is creating are: ${instructions}
 	`
 }
-function createMessage(code: string, language: string = "javascript") {
+function createMessage(code: string, language: string = "javascript", output: string = "") {
 	return `
 	this code is in the editor it is not pased in by the user so do not refer to it as so you can point to is as the code in the editor: ${code} in ${language}
+	The last output from the console was: ${output}
 	`
 }

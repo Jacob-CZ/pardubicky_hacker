@@ -12,14 +12,14 @@ export default function ChatAssistant() {
     const {messages, setMessage} = useMessagetStore()
     const [input, setInput] = useState<string>("")
     const {code, instructions} = useCodeStore()
-    const {language} = useOutputStore()
+    const {language, output} = useOutputStore()
     async function handleSend() {
         if (!input) return
         setMessage({content: input, role: "user"})
         setInput("")
         const {response} = await fetch("/api/assistant", {
             method: "POST",
-            body: JSON.stringify({messages: [{content: input, role: "user"}, ...messages].reverse(), code, instructions, language}),
+            body: JSON.stringify({messages: [{content: input, role: "user"}, ...messages].reverse(), code, instructions, language, output: output[output.length - 1]}),
             headers: {
                 "Content-Type": "application/json"
             }
