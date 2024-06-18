@@ -9,6 +9,7 @@ Open [production build](https://pardubicky-hacker.vercel.app/) for demo.
 
 - markdown is broken because of tailwind
 - auth is not complete (because of demo purpouses)
+- **suspected css and scripting attack posibility in the console window**
 
 ## Features
 
