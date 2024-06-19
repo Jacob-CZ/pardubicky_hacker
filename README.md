@@ -7,6 +7,7 @@ Open [production build](https://pardubicky-hacker.vercel.app/) for demo.
 
 ## Known bugs
 
+- backend 2 being migrated to linux
 - markdown is broken because of tailwind
 - auth is not complete (because of demo purpouses)
 - **suspected css and scripting attack posibility in the console window**
