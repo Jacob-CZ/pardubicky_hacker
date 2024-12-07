@@ -16,8 +16,11 @@ type ExampleData = {
 		initial: string
 		solution: string
 	}
-	instructions: string[]
+	instructions: string
 	hints: string[]
+	created_at: string
+	func_name: string | null
+	name: string | null
 }
 
 export default async function Page({
@@ -36,16 +39,15 @@ export default async function Page({
 			solution:
 				"function reverseArray(arr) {\n  return arr.reverse();\n}",
 		},
-		instructions: [
-			"Create a function that reverses an array",
-			"Do not use built-in methods first",
-			"Compare your solution with the optimal one",
-		],
+		instructions: "Write a function that reverses the elements of an array",
 		hints: [
 			"Think about using a loop",
 			"You can swap elements using a temporary variable",
 			"Consider the array.reverse() method as an alternative",
 		],
+		created_at: new Date().toISOString(),
+		func_name: null,
+		name: null,
 	}
 
 	return (
